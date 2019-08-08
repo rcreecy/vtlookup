@@ -352,7 +352,7 @@ function FileSubmit {
 function FileScan {
     Write-Ascii "SCAN" -ForegroundColor Magenta
     $ScanHoldFinal = 1
-    $FilePath = Read-Host "`nWhat is the path to the file you would like to scan? (Enter 'diag' for a popout dialog box, or 'prev' to grab a report on a previous scan)`nYou can also type 'back' to return to the menu`n["
+    $FilePath = Read-Host "`nWhat is the path to the file you would like to scan? (Enter 'diag' for a popout dialog box, or 'prev' to grab a report on a previous scan)`n'prev' is currently not holding the last MD5 value correctly, but you can use the hash search for the report`nYou can also type 'back' to return to the menu`n["
     if ($FilePath -eq "diag") {
         $FilePath = Get-Filename
         $ScanReturn = Invoke-VTScan -VTApiKey $VTApiKey -file $FilePath
