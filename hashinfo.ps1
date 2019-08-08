@@ -314,7 +314,7 @@ function VTSubmissions {
 
 function HashSubmit {
     Write-Ascii "#HASH" -ForegroundColor Green
-    $FileHash = Read-Host "`nWhat is the file hash you would like to lookup?`nYou can also type 'back' to return to the menu`n["
+    $FileHash = Read-Host "`nWhat is the file hash you would like to lookup?`nYou can also type 'back' to return to the menu, or 'exit' to leave.`n["
     if ($FileHash -eq "back") {
         & LoopbackAfterPost
     } elseif ($FileHash -eq "exit") {
@@ -334,7 +334,7 @@ function Goodbye {
 
 function FileSubmit {
     Write-Ascii "C:\FILE" -ForegroundColor Green
-    $FilePath = Read-Host "`nWhat is the path to the file you would like to submit? (Enter 'diag' for a popout dialog box)`nYou can also type 'back' to return to the menu`n["
+    $FilePath = Read-Host "`nWhat is the path to the file you would like to submit? (Enter 'diag' for a popout dialog box)`nYou can also type 'back' to return to the menu, or 'exit' to leave.`n["
     if ($FilePath -eq "diag") {
         $FilePathDirect = Get-Filename
         Get-VTReport -VTApiKey $VTApiKey -file $FilePathDirect | select scan_date, md5, sha1, sha256, positives, total, permalink, scans
@@ -352,7 +352,7 @@ function FileSubmit {
 function FileScan {
     Write-Ascii "SCAN" -ForegroundColor Magenta
     $ScanHoldFinal = 1
-    $FilePath = Read-Host "`nWhat is the path to the file you would like to scan? (Enter 'diag' for a popout dialog box, or 'prev' to grab a report on a previous scan)`n'prev' is currently not holding the last MD5 value correctly, but you can use the hash search for the report`nYou can also type 'back' to return to the menu`n["
+    $FilePath = Read-Host "`nWhat is the path to the file you would like to scan? (Enter 'diag' for a popout dialog box, or 'prev' to grab a report on a previous scan)`n'prev' is currently not holding the last MD5 value correctly, but you can use the hash search for the report`nYou can also type 'back' to return to the menu, or 'exit' to leave.`n["
     if ($FilePath -eq "diag") {
         $FilePath = Get-Filename
         $ScanReturn = Invoke-VTScan -VTApiKey $VTApiKey -file $FilePath
@@ -381,7 +381,7 @@ function FileScan {
 
 function UrlSubmit {
     Write-Ascii "http://url" -ForegroundColor Green
-    $UrlPath = Read-Host "`nWhat is the URL path you would like to submit?`nYou can also type 'back' to return to the menu`n["
+    $UrlPath = Read-Host "`nWhat is the URL path you would like to submit?`nYou can also type 'back' to return to the menu, or 'exit' to leave.`n["
     if ($UrlPath -eq "back") {
         & LoopbackAfterPost
     } elseif ($UrlPAth -eq "exit") {
@@ -396,7 +396,6 @@ function Get-FileName($initialDirectory)
 {   
     [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") |
     Out-Null
-
     $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
     $OpenFileDialog.initialDirectory = $initialDirectory
     $OpenFileDialog.filter = "All files (*.*)| *.*"
