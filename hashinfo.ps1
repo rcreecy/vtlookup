@@ -2,64 +2,64 @@ Import-Module ".\prompt\Write-Ascii.psm1"
 
 # Draw welcome screen
 function Welcome {
-    Write-Host -ForegroundColor Red "`n`                         !"
-    Start-Sleep -MilliSeconds 200
+    Write-Host -ForegroundColor Red "`n`n                         !"
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Red "                         !"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Red "                         ^"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Red "                        / \"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Red "                       /___\"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |=   =|"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      |     |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                     /|##!##|\"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                    / |##!##| \"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                   /  |##!##|  \"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                  |  / ^ | ^ \  |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                  | /  ( | )  \ |"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                  |/   ( | )   \|"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                      ((   ))"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Green "                     ((  :  ))"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                     ((  :  ))"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                      ((   ))"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                       (( ))"
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                         ."
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                         ."
-    Start-Sleep -MilliSeconds 200
+    Start-Sleep -MilliSeconds 100
     Write-Host -ForegroundColor Yellow "                         ."
     Start-Sleep -MilliSeconds 600
     Write-Ascii "VIRUSTOTAL" -ForegroundColor Blue
@@ -222,7 +222,7 @@ function Invoke-VTScan {
             $b = (Get-AsciiBytes ('Content-Disposition: form-data; name="file"; filename="' + $file.Name + '";'))
             $body.Write($b, 0, $b.Length)
             $body.Write($CRLF, 0, $CRLF.Length)            
-            $b = (GgetAsciiBytes 'Content-Type:application/octet-stream')
+            # $b = (GgetAsciiBytes 'Content-Type:application/octet-stream')
             $body.Write($b, 0, $b.Length)
             
             $body.Write($CRLF, 0, $CRLF.Length)
@@ -289,23 +289,23 @@ function Invoke-VTRescan {
 # Here is out Virus Total query code
 #########################################
 function LoopbackAfterPost {
+    Write-Host "`n`n"
     Write-Ascii "VT LOOKUP" -ForegroundColor Blue
-    & VTSubmissions
+    VTSubmissions
 }
 
 function VTSubmissions {
-    $FileType = Read-Host "`n`nHow would you like to conduct the sample lookup?`n(1) HASH`n(2) FILE`n(3) URL`n`n["
+    $FileType = Read-Host "`n`nHow would you like to conduct the sample lookup?`n(1) HASH`n(2) FILE`n(3) URL`n(4) SCAN *WIP*`n(EXIT)`n`n["
     if ($FileType -eq "1" -or $FileType -eq "HASH") {
         HashSubmit
     } elseif ($FileType -eq "2" -or $FileType -eq "FILE") {
         FileSubmit
     } elseif ($FileType -eq "3" -or $FileType -eq "URL") {
         UrlSubmit
+    } elseif ($FileType -eq "4" -or $FileType -eq "SCAN") {
+        FileScan
     } elseif ($FileType -eq "exit") {
-        Write-Ascii "Goodbye!" -ForegroundColor Green
-        Write-Host "`n`n`n"
-        Start-Sleep -Milliseconds 300
-        exit
+        Goodbye
     } else {
         Write-Host "`nSelection Invalid! Please try again.`n" -ForegroundColor Red
         VTSubmissions
@@ -317,10 +317,19 @@ function HashSubmit {
     $FileHash = Read-Host "`nWhat is the file hash you would like to lookup?`nYou can also type 'back' to return to the menu`n["
     if ($FileHash -eq "back") {
         & LoopbackAfterPost
+    } elseif ($FileHash -eq "exit") {
+        Goodbye
     } else {
         Get-VTReport -VTApiKey $VTApiKey -Hash $FileHash | select scan_date, md5, sha1, sha256, positives, total, permalink, scans
         HashSubmit
     }
+}
+
+function Goodbye {
+    Write-Ascii "Goodbye!" -ForegroundColor Green
+    Write-Host "`n`n"
+    Start-Sleep -Milliseconds 300
+    exit
 }
 
 function FileSubmit {
@@ -329,10 +338,44 @@ function FileSubmit {
     if ($FilePath -eq "diag") {
         $FilePathDirect = Get-Filename
         Get-VTReport -VTApiKey $VTApiKey -file $FilePathDirect | select scan_date, md5, sha1, sha256, positives, total, permalink, scans
+        FileSubmit
     } elseif ($FilePath -eq "back") {
         & LoopbackAfterPost
+    } elseif ($FilePath -eq "exit") {
+        Goodbye
     } else {
         Get-VTReport -VTApiKey $VTApiKey -file $FilePath | select scan_date, md5, sha1, sha256, positives, total, permalink, scans
+        FileSubmit
+    }
+}
+
+function FileScan {
+    Write-Ascii "SCAN" -ForegroundColor Magenta
+    $ScanHoldFinal = 1
+    $FilePath = Read-Host "`nWhat is the path to the file you would like to scan? (Enter 'diag' for a popout dialog box, or 'prev' to grab a report on a previous scan)`nYou can also type 'back' to return to the menu`n["
+    if ($FilePath -eq "diag") {
+        $FilePath = Get-Filename
+        $ScanReturn = Invoke-VTScan -VTApiKey $VTApiKey -file $FilePath
+        $ScanHold = $ScanReturn | select md5 | Tee-Object -Variable $ScanHoldFinal
+        $ScanVerbose = $ScanReturn | select md5, verbose_msg
+        $ScanVerbose
+        FileScan
+    } elseif ($FilePath -eq "back") {
+        & LoopbackAfterPost
+    } elseif ($FilePath -eq "prev") {
+        if ($ScanHoldFinal -eq 1) {
+            Write-Host "`nNo files have been scanned this session.`n" -ForegroundColor Red
+            Filescan
+        } else {
+            Get-VTReport -VTApiKey $VTApiKey -hash $ScanHoldFinal
+            FileScan
+        }
+    } elseif ($FilePAth -eq "exit") {
+        Goodbye
+    } else {
+        Invoke-VTScan -VTApiKey $VTApiKey -file $FilePath  | select md5, sha1, sha256, verbose_msg, permalink
+        $ScanHold = select md5
+        FileScan
     }
 }
 
@@ -341,8 +384,11 @@ function UrlSubmit {
     $UrlPath = Read-Host "`nWhat is the URL path you would like to submit?`nYou can also type 'back' to return to the menu`n["
     if ($UrlPath -eq "back") {
         & LoopbackAfterPost
+    } elseif ($UrlPAth -eq "exit") {
+        Goodbye
     } else {
         Get-VTReport -VTApiKey $VTApiKey -uri $FilePath | select scan_date, md5, sha1, sha256, positives, total, permalink, scans
+        UrlSubmit
     }
 }
 
