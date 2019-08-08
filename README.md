@@ -5,4 +5,4 @@ This tool provides a straightforward and ASCII happy powershell GUI to interact 
 
 It allows hash lookup, file lookup (with a windows popup dialog so full path entry is an option, but not a must), and URL lookup. Scanning is still a work in progress.
 
-![Use](/readme/use.png)
+![Example Lookup](/readme/use.png)
