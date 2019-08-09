@@ -1,4 +1,4 @@
-# Virustotal Lookup
+# VirusTotal Powershell Lookup
 ![Interface](/readme/gui.png)
 ![Example Lookup](/readme/use.PNG)
 
