@@ -8,7 +8,10 @@ The main purpose is to learn more about working with REST apis in powershell, as
 
 It allows hash lookup, file lookup (with a windows popup dialog so full path entry is an option, but not a must), and URL lookup. Scanning is still a work in progress.
 
-Place your VirusTotal API key in a api.txt file next to where you execute the script, and powershell will use the $PSScriptRoot variable to find your invocation path and read the output of the file.
+Place your VirusTotal API key in a api.txt file next to where you execute the script, and powershell will use the $PSScriptRoot variable to find your invocation path and read the output of the file. I left it at the top of the script so it's straightforward to change should you want too.
+```powershell
+$VTApiKey = [IO.file]::ReadAllText("$PSScriptRoot\api.txt")
+```
 
 One of the more useful and user-friendly options of this script is the use of the Windows file prompt, called from the below function.
 ```powershell
