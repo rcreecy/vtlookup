@@ -71,7 +71,7 @@ function Welcome {
 }
 
 # VIRUSTOTAL API SCRIPTS
-$VTApiKey = "bd3033ff119fc586a8b4fa36fac3a2dc92ec66846d207b9ec32588bbd64f25b3"
+$VTApiKey = [IO.file]::ReadAllText("$PSScriptRoot\api.txt")
 Add-Type -AssemblyName System.Security
 
 function Set-VTApiKey {
